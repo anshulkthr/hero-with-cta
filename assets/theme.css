@@ -6996,3 +6996,63 @@ hr {
 
 .store-availability-list__phone {
   margin-bottom: 0; }
+
+
+/* ==========Custom Hero Section============= */
+.custom-hero-width {
+    font-family: 'Roboto';
+}
+.custom-hero-width .hero__overlay::before {
+  background: #000;
+}
+.custom-hero-width .h1.mega-title {
+    font-size: 46px;
+  	font-style: normal;
+  	font-weight: 700;
+}
+.custom-hero-width .mega-subtitle p {
+    font-size: 24px;
+  	font-style: normal;
+  	font-weight: 300;
+}
+.custom-hero-width .hero__btn{
+  	font-size: 20px;
+    font-style: normal;
+  	font-weight: 300;
+    border-radius: 26px;
+    background: #57AD68;
+    letter-spacing: 0;
+    padding: 10px 35px;
+}
+.text-align-dynamic {
+    max-width: 875px;
+  	text-align: center;
+}
+.custom-hero-width .hero__btn:hover{
+	color: #57AD68;
+    background-color: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+  .text-align-dynamic {
+    max-width: 100%;
+    float: none !important;
+    text-align: center !important;
+  }
+  
+  .custom-hero-width .h1.mega-title {
+    font-size: 36px;
+  }
+  
+  .custom-hero-width .mega-subtitle p {
+    font-size: 18px;
+    padding: 0px 46px;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .custom-hero-width .mega-subtitle p {
+    padding: 0px 30px;
+  }
+}
+/* ==========Custom Hero Section End Here============= */

@@ -1,0 +1,172 @@
+<style>
+  {% if section.settings.title != blank  %}
+  	{% if section.settings.alignment == 'left' or section.settings.alignment == 'right' %}
+    .text-align-dynamic {
+      float: {{ section.settings.alignment }};
+      text-align: left;
+      max-width: 690px;
+    }
+  	{% endif %}
+  	.custom-hero-width .h1.mega-title, 
+  	.custom-hero-width .mega-subtitle p{
+      color: {{ section.settings.color_text }};
+    }
+  {% endif %}
+  
+</style>
+
+<div data-section-id="{{ section.id }}" data-section-type="hero-section">
+    <div class="custom-hero-width">
+      <div class="hero-fixed-width hero--adapt"
+         id="Hero-{{ section.id }}"
+           
+         data-image-loading-animation>
+      {%- assign img_url = section.settings.image-desktop | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+      {%- if section.settings.image-desktop.width < max_width -%}
+        {%- assign slide_width = section.settings.image-desktop.width -%}
+      {%- endif -%}
+      <div class="hero-fixed-width__content">
+        <div class="page-width text-align-dynamic">
+          {%- if section.settings.title != blank -%}
+            <h2 class="h1 mega-title">{{ section.settings.title | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.text != blank -%}
+            <div class="rte-setting mega-subtitle">{{ section.settings.text }}</div>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+            <a href="{{ section.settings.button_link }}" class="btn hero__btn">
+              {{ section.settings.button_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+      {%- if section.settings.image-desktop != blank -%}
+        <picture>
+        <source media="(max-width:767px)" srcset="{{ section.settings.image-mobile | img_url: '450x' }}">
+        <img class="hero-fixed-width__image lazyload lazypreload"
+             data-src="{{ img_url }}"
+             data-widths="[180, 360, 470, 600, 770, 970, 1060, 1280, 1512, 1728, 2048]"
+             data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+             data-sizes="auto"
+             style="{%- if slide_width <= max_width -%}
+                      {%- assign min_width = slide_width | times: 100 | divided_by: max_width -%}
+                      min-width: {{ min_width }}%;
+                    {%- endif -%}
+                    object-position: {{ section.settings.alignment }};"
+             alt="{{ section.settings.image.alt | escape }}">
+        </picture>
+      {%- else -%}
+        <span>
+          {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+          {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+        </span>
+      {%- endif -%} 
+        {% if section.settings.title != blank or section.settings.text != blank or section.settings.button_label != blank %}<div class="hero__overlay"></div>{% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": {
+    "en": "Hero slide with CTA"
+  },
+  "class": "index-section index-section--flush",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image-desktop",
+      "label": {
+        "en": "Image"
+      }
+    },
+	{
+      "type": "image_picker",
+      "id": "image-mobile",
+      "label": {
+        "en": "Mobile Image"
+      }
+    },
+	{
+      "type": "color",
+      "id": "color_text",
+      "label": {
+        "en": "Color Picker"
+      },
+      "default": "#fff"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": {
+        "en": "Text Alignment"
+      },
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": {
+            "en": "Left"
+          }
+        },
+        {
+          "value": "center",
+          "label": {
+            "en": "Center"
+          }
+        },
+        {
+          "value": "right",
+          "label": {
+            "en": "Right"
+          }
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "en": "Title"
+      },
+      "default": {
+        "en": "Hero slide with CTA"
+      }
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": {
+        "en": "Copy"
+      },
+      "default": {
+        "en": "<p>In lorem leo, sodales et ullamcorper tempor, facilisis id nibh. Maecenas nibh risus, rutrum nec tellus sed, pharetra gravida nulla. Proin imperdiet</p>"
+      }
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": {
+        "en": "CTA Text"
+      }
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": { 
+        "en": "CTA URL"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+        "en": "Hero slide with CTA"
+      },
+      "category": {
+        "en": "Image"
+      }
+    }
+  ]
+}
+{% endschema %}
